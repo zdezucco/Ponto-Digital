@@ -4,7 +4,7 @@ html {
 
 body {
     width: 1200px;
-    margin: 0 auto;
+    margin: 25px auto;
     background-color: #ffffff;
     padding: 0 20px 20px 20px;
     border: 5px solid black;
@@ -14,7 +14,7 @@ h1 {
     background-color: white;
     text-align: center;
     color:black;
-    margin: 5px auto;
+    margin: 15px auto;
     width: 250px;
     align-self: center;
     text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.39);
@@ -24,7 +24,7 @@ h3 {
     background-color: white;
     text-align: center;
     color:black;
-    margin: 15px auto;
+    margin: 25px auto;
     width: 450px;
     text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.39);
 }   
