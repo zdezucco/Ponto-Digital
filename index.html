@@ -75,13 +75,13 @@
 
 
             dia = dia.getDate() + " / " + mes + " / " + dia.getFullYear() +" - " + dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
-            localStorage.setItem("Funcionários", JSON.stringify(listaFuncionarios) + " | " + "Data e Hora: " + JSON.stringify(dia));
+            localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios) + " | " + "Data e Hora: " + JSON.stringify(dia));
         }
 
         function getPonto(){
             document.getElementById("busca").value =
                 document.getElementById("busca").value +
-                localStorage.getItem("Funcionários") +
+                localStorage.getItem("Funcionarios") +
                 "\n";
         }
         
@@ -89,7 +89,6 @@
             localStorage.removeItem(document.getElementById("Chave").value);
             document.getElementById("chave").value = "";
         }
-
     </script>
 </body>
 </html>
