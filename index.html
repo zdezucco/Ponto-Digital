@@ -14,48 +14,59 @@
     <fieldset>
         <legend>Digite o Seu Nome Completo</legend>
         <label><input type="text" id="nome.funcionario" name="nome"></label>
-        <button type="submit" onclick="registrar()" id="btn.funcionario">Registrar</button>
-    </fieldset>
-    <fieldset>
         <legend>Informe se o ponto é de entrada ou de saída:</legend>
         <label><input type="radio" id="btn.entrada" name="entrada-saida" value="Entrada" checked>Entrada</label>
         <label><input type="radio" id="btn.saida" name="entrada-saida" value="Saída">Saída</label>
         <button onclick="ponto()">Confirmar</button>
     </fieldset>
 
+    <fieldset>
+        <textarea id="busca" cols="50" rows="10"></textarea>
+        <label><button onclick="getPonto()">Buscar</button></label>
+
+    </fieldset>
+
+    <input type="text" id="Chave" name="ChaveApagar">
+    <button onclick="deleteJSON()">Apagar</button>
+
 </head>
 <body>
     <script>
-        let nome;
-        let conf_ponto;
-        let dia = new Date();
+        var dia = new Date();
         const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-        let mes = month[dia.getMonth()];
-        let nameMJSON = JSON.stringify(nome);
+        var mes = month[dia.getMonth()];
         let diaMJSON = JSON.stringify(dia);
-        let pontMJSON = JSON.stringify(conf_ponto);
 
 
-        function registrar(){
-            nome = document.getElementById("nome.funcionario").value;
-
-            console.log(localStorage);
+        class funcionario {
+            Nome = "";
+            Ponto = "";
         }
+
+        let listaFuncionarios = [];
+
         function ponto(){
             var btn_entrada = document.getElementById("btn.entrada").checked;
             var btn_saida = document.getElementById("btn.saida").checked;
             btn_entrada.checked = true;
             btn_saida.checked = true;
 
+            let novoFuncionario = new funcionario;
+            novoFuncionario.Nome = document.getElementById("nome.funcionario").value;
+            listaFuncionarios.push(novoFuncionario);
+            document.getElementById("nome.funcionario").value = "";
+
+            console.log(localStorage);
+
             if(btn_entrada == true){
 
                 alert("Ponto confirmado!");
-                conf_ponto = "Entrada";
+                novoFuncionario.Ponto = "Entrada";
 
             }else if(btn_saida == true){
 
                 alert("Ponto confirmado!");
-                conf_ponto = "Saída";
+                novoFuncionario.Ponto = "Saída";
 
             }else{
                 alert("Informe se o ponto é referente a entrada ou saída!");
@@ -64,12 +75,20 @@
 
 
             dia = dia.getDate() + " / " + mes + " / " + dia.getFullYear() +" - " + dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
-            localStorage.setItem("Funcionário: ", JSON.stringify(nome) + " | " + "Data e Hora: " + JSON.stringify(dia) + " | " + "Ponto: " + JSON.stringify(conf_ponto));
-
-            console.log(conf_ponto);
+            localStorage.setItem("Funcionários", JSON.stringify(listaFuncionarios) + " | " + "Data e Hora: " + JSON.stringify(dia));
         }
 
+        function getPonto(){
+            document.getElementById("busca").value =
+                document.getElementById("busca").value +
+                localStorage.getItem("Funcionários") +
+                "\n";
+        }
         
+        function deleteJSON(){
+            localStorage.removeItem(document.getElementById("Chave").value);
+            document.getElementById("chave").value = "";
+        }
 
     </script>
 </body>
