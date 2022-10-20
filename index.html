@@ -32,20 +32,22 @@
 </head>
 <body>
     <script>
-        var dia = new Date();
-        const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-        var mes = month[dia.getMonth()];
-        let diaMJSON = JSON.stringify(dia);
-
-
+        
+     
         class funcionario {
             Nome = "";
             Ponto = "";
+            Dia = ""
         }
 
         let listaFuncionarios = [];
 
         function ponto(){
+            var dia = new Date();        
+            const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro",  "Dezembro"];
+            var mes = month[dia.getMonth()];
+            let diaMJSON = JSON.stringify(dia);
+                     
             var btn_entrada = document.getElementById("btn.entrada").checked;
             var btn_saida = document.getElementById("btn.saida").checked;
             btn_entrada.checked = true;
@@ -53,7 +55,7 @@
 
             let novoFuncionario = new funcionario;
             novoFuncionario.Nome = document.getElementById("nome.funcionario").value;
-            listaFuncionarios.push(novoFuncionario);
+           
             document.getElementById("nome.funcionario").value = "";
 
             console.log(localStorage);
@@ -72,9 +74,10 @@
                 alert("Informe se o ponto é referente a entrada ou saída!");
             }
 
+            listaFuncionarios.push(novoFuncionario);
 
+            novoFuncionario.Dia = dia.getDate() + "/" + mes + "/" + dia.getFullYear() + " - " + dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
 
-            dia = dia.getDate() + " / " + mes + " / " + dia.getFullYear() +" - " + dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
             localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios) + " | " + "Data e Hora: " + JSON.stringify(dia));
         }
 
