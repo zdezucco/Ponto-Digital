@@ -13,7 +13,7 @@
     </div>
     <fieldset>
         <legend>Digite o Seu Nome Completo</legend>
-        <label><input type="text" id="nome.funcionario" name="nome"></label>
+        <label><input type="text" id="nome.funcionario" name="nome" placeholder="Nome Completo"></label>
         <legend>Informe se o ponto é de entrada ou de saída:</legend>
         <label><input type="radio" id="btn.entrada" name="entrada-saida" value="Entrada" checked>Entrada</label>
         <label><input type="radio" id="btn.saida" name="entrada-saida" value="Saída">Saída</label>
@@ -23,12 +23,12 @@
     <fieldset>
         <textarea id="busca" cols="185" rows="10"></textarea>
         <div>
-            <label><input type="text" id="id.busca" name="name"></label>
+            <label><input type="text" id="id.busca" name="name" placeholder="Nome do Funcionário"></label>
             <label><button onclick="getPonto()">Buscar</button></label>
         </div>
     </fieldset>
 
-    <input type="text" id="Chave" name="ChaveApagar">
+    <input type="text" id="Chave" name="ChaveApagar" placeholder="Funcionarios">
     <button onclick="deleteJSON()">Apagar</button>
 
 </head>
@@ -97,15 +97,17 @@
             if(name == ""){
                 document.getElementById("busca").value = "INFORME O NOME DE UM FUNCIONÁRIO NO CAMPO DE BUSCA!!";
             }else{
+                let achou = false;
                 for (let i = 0; i < listaFuncionarios.length; i++){
                     if((Object.values(obj)[i].Nome) == name ){
                         document.getElementById("busca").value =
                             document.getElementById("busca").value +
                             "Nome: " + Object.values(obj)[i].Nome + " | Ponto: " + Object.values(obj)[i].Ponto + " | Data: " + Object.values(obj)[i].Dia + " - Hora: " + Object.values(obj)[i].Hora + "\n"; 
+                            achou = true;
                     }
-                    /*if(name  Object.values(obj)[i].Nome){
-                                document.getElementById("busca").value = "INFORME O NOME DE UM FUNCIONÁRIO NO CAMPO DE BUSCA!!";
-                    }*/
+                }
+                if(!achou){
+                    document.getElementById("busca").value = "INFORME O NOME VÁLIDO NO CAMPO DE BUSCA!!";
                 }
             }
             console.log(name);
