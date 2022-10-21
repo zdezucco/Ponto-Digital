@@ -21,9 +21,11 @@
     </fieldset>
 
     <fieldset>
-        <textarea id="busca" cols="50" rows="10"></textarea>
-        <label><button onclick="getPonto()">Buscar</button></label>
-
+        <textarea id="busca" cols="185" rows="10"></textarea>
+        <div>
+            <label><input type="text" id="id.busca" name="name"></label>
+            <label><button onclick="getPonto()">Buscar</button></label>
+        </div>
     </fieldset>
 
     <input type="text" id="Chave" name="ChaveApagar">
@@ -37,10 +39,12 @@
         class funcionario {
             Nome = "";
             Ponto = "";
-            Dia = ""
+            Dia = "";
+            Hora = "";
         }
 
         let listaFuncionarios = [];
+   
 
         function ponto(){
             var dia = new Date();        
@@ -76,16 +80,35 @@
 
             listaFuncionarios.push(novoFuncionario);
 
-            novoFuncionario.Dia = dia.getDate() + "/" + mes + "/" + dia.getFullYear() + " - " + dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
+            novoFuncionario.Dia = dia.getDate() + "/" + mes + "/" + dia.getFullYear();
+            novoFuncionario.Hora = dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
 
-            localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios) + " | " + "Data e Hora: " + JSON.stringify(dia));
+
+            localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios));
+
         }
 
         function getPonto(){
-            document.getElementById("busca").value =
-                document.getElementById("busca").value +
-                localStorage.getItem("Funcionarios") +
-                "\n";
+            const listJSON = JSON.stringify(listaFuncionarios);
+            const obj = JSON.parse(listJSON);
+
+            let name = document.getElementById("id.busca").value;
+
+            if(name == ""){
+                document.getElementById("busca").value = "INFORME O NOME DE UM FUNCIONÁRIO NO CAMPO DE BUSCA!!";
+            }else{
+                for (let i = 0; i < listaFuncionarios.length; i++){
+                    if((Object.values(obj)[i].Nome) == name ){
+                        document.getElementById("busca").value =
+                            document.getElementById("busca").value +
+                            "Nome: " + Object.values(obj)[i].Nome + " | Ponto: " + Object.values(obj)[i].Ponto + " | Data: " + Object.values(obj)[i].Dia + " - Hora: " + Object.values(obj)[i].Hora + "\n"; 
+                    }
+                    /*if(name  Object.values(obj)[i].Nome){
+                                document.getElementById("busca").value = "INFORME O NOME DE UM FUNCIONÁRIO NO CAMPO DE BUSCA!!";
+                    }*/
+                }
+            }
+            console.log(name);
         }
         
         function deleteJSON(){
