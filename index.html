@@ -28,8 +28,7 @@
         </div>
     </fieldset>
 
-    <input type="text" id="Chave" name="ChaveApagar" placeholder="Funcionarios">
-    <button onclick="deleteJSON()">Apagar</button>
+    <button onclick="deleteJSON()">Apagar Dados</button>
 
 </head>
 <body>
@@ -57,34 +56,37 @@
             btn_entrada.checked = true;
             btn_saida.checked = true;
 
-            let novoFuncionario = new funcionario;
-            novoFuncionario.Nome = document.getElementById("nome.funcionario").value;
-           
-            document.getElementById("nome.funcionario").value = "";
-
-            console.log(localStorage);
-
-            if(btn_entrada == true){
-
-                alert("Ponto confirmado!");
-                novoFuncionario.Ponto = "Entrada";
-
-            }else if(btn_saida == true){
-
-                alert("Ponto confirmado!");
-                novoFuncionario.Ponto = "Saída";
-
+            if (document.getElementById("nome.funcionario").value == ""){
+                alert("Insira um nome no campo!");
             }else{
-                alert("Informe se o ponto é referente a entrada ou saída!");
+
+                let novoFuncionario = new funcionario;
+                novoFuncionario.Nome = document.getElementById("nome.funcionario").value;
+           
+                document.getElementById("nome.funcionario").value = "";
+                    if(btn_entrada == true){
+
+                        alert("Ponto confirmado!");
+                        novoFuncionario.Ponto = "Entrada";
+
+                    }else if(btn_saida == true){
+
+                        alert("Ponto confirmado!");
+                        novoFuncionario.Ponto = "Saída";
+
+                    }else{
+                        alert("Informe se o ponto é referente a entrada ou saída!");
+                    }
+
+                        console.log(localStorage);
+
+                        listaFuncionarios.push(novoFuncionario);
+
+                        novoFuncionario.Dia = dia.getDate() + "/" + mes + "/" + dia.getFullYear();
+                        novoFuncionario.Hora = dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
+
+                        localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios));
             }
-
-            listaFuncionarios.push(novoFuncionario);
-
-            novoFuncionario.Dia = dia.getDate() + "/" + mes + "/" + dia.getFullYear();
-            novoFuncionario.Hora = dia.getHours() + ":" + dia.getMinutes() + ":" + dia.getSeconds();
-
-
-            localStorage.setItem("Funcionarios", JSON.stringify(listaFuncionarios));
 
         }
 
@@ -114,8 +116,8 @@
         }
         
         function deleteJSON(){
-            localStorage.removeItem(document.getElementById("Chave").value);
-            document.getElementById("chave").value = "";
+            localStorage.removeItem("Funcionarios");
+            alert("LocalStorage deletado com sucesso!");
         }
     </script>
 </body>
